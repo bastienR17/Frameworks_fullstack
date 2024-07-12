@@ -3,25 +3,28 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\ApiKey;
+use App\Models\ApiKeys;
 use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class ApiKeyController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+
+
+
 
     public function index()
-    {
-        $apiKeys = ApiKey::where('user_id', Auth::id())->get();
-        return view('apikeys.index', compact('apiKeys'));
-    }
-
+       {
+         $user = auth()->user();
+            $apikeys = $user->apikeys;
+           return Inertia::render('API/Index', [
+                'apikeys' => ApiKeys::all(),
+           ]);
+       }
     public function create()
     {
         return view('apikeys.create');
+
     }
 
     public function store(Request $request)

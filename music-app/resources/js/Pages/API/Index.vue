@@ -1,30 +1,43 @@
-<script setup>
+
+
+<script>
 import ApiTokenManager from '@/Pages/API/Partials/ApiTokenManager.vue';
 import AppLayout from '@/Layouts/AppLayout.vue';
+import Track from "@/Components/Track/Track.vue";
+import {Link} from "@inertiajs/vue3";
+import MusicLayout from "@/Layouts/MusicLayout.vue";
 
-defineProps({
-    tokens: Array,
-    availablePermissions: Array,
-    defaultPermissions: Array,
-});
+
+export default {
+    name: 'index',
+    components: {MusicLayout},
+
+    data() {
+        return {
+            tokens: Array,
+            availablePermissions: Array,
+            defaultPermissions: Array,
+        }
+    },
+}
 </script>
 
 <template>
-    <AppLayout title="API Tokens">
-        <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                API Tokens
-            </h2>
+
+    <MusicLayout>
+
+        <template #title>
+            vos clés api
         </template>
 
-        <div>
-            <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
-                <ApiTokenManager
-                    :tokens="tokens"
-                    :available-permissions="availablePermissions"
-                    :default-permissions="defaultPermissions"
-                />
-            </div>
-        </div>
-    </AppLayout>
+
+        <template #content>
+            <table>
+
+              
+            </table>
+        </template>
+
+    </MusicLayout>
+
 </template>

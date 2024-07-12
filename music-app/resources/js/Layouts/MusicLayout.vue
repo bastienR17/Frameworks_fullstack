@@ -46,6 +46,14 @@
                         :class="[route().current().includes('playlists') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white']">
                       Playlist
                   </Link>
+
+                    <Link :href="route('API.index')"
+                            v-if="$page.props.auth.user"
+                            class="rounded-md px-3 py-2 text-sm font-medium"
+                            :class="[route().current().includes('api') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white']">
+                        API
+                    </Link>
+
               </div>
             </div>
           </div>

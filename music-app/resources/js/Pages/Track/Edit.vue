@@ -54,14 +54,16 @@ export default {
         Link
     },
     props: {
-        track: Object,
+        track: Array,
+        playlist: Object,
     },
     data() {
         return {
             form: this.$inertia.form({
-                title: this.track.title,
+                title: this.playlist.title,
                 artist: this.track.artist,
                 display: this.track.display ? true : false,
+                track
             })
         }
     },

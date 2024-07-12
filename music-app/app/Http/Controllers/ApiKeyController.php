@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\ApiKeys;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
+use Illuminate\Support\Str;
 
 class ApiKeyController extends Controller
 {
@@ -29,19 +30,15 @@ class ApiKeyController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-        ]);
-
-        $apiKey = new ApiKey([
-            'user_id' => Auth::id(),
-            'key' => \Str::random(40),
-            'name' => $request->name,
-            'active' => true,
+        $user = auth()->user();
+        $apiKey = new ApiKeys([
+            'user_id' => $user->id,
+            'key' => Str::random(40), // Generate a random API key
+            'name' => 'Generated Key', // You might want to accept a name from the request
         ]);
         $apiKey->save();
 
-        return redirect()->route('apikeys.index');
+        return redirect()->back()->with('message', 'API Key generated successfully.');
     }
 
     public function destroy(ApiKey $apiKey)

@@ -1,4 +1,18 @@
 
+<template>
+
+   <music-layout>
+
+   </music-layout>
+
+    <div>
+
+        <button @click="createApiKey">Generate API Key</button>
+
+
+    </div>
+</template>
+
 
 <script>
 import ApiTokenManager from '@/Pages/API/Partials/ApiTokenManager.vue';
@@ -19,25 +33,14 @@ export default {
             defaultPermissions: Array,
         }
     },
+    methods: {
+        createApiKey() {
+            this.$inertia.post('/api/keys/store').then(() => {
+                // Handle success, e.g., show a message or refresh the list of API keys.
+            }).catch(error => {
+                console.error('Error creating API key:', error);
+            });
+        }
+    }
 }
 </script>
-
-<template>
-
-    <MusicLayout>
-
-        <template #title>
-            vos clés api
-        </template>
-
-
-        <template #content>
-            <table>
-
-              
-            </table>
-        </template>
-
-    </MusicLayout>
-
-</template>

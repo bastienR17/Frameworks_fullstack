@@ -14,8 +14,6 @@ Route::get('/', [TrackController::class, 'index'])->name('tracks.index');
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::resource('playlists', PlaylistController::class);
-    Route::get('/api-keys', [ApiKeyController::class, 'index'])->name('API.index');
-
 
 
 
@@ -28,6 +26,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         Route::delete('/{track}', 'destroy')->name('destroy');
     });
 
+    Route::get('/api-keys', [ApiKeyController::class, 'index'])->name('API.index');
+    Route::post('/api/keys/store', [ApiKeyController::class, 'store']);
 });
 
 

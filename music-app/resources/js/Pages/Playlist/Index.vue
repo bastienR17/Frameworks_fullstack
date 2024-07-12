@@ -70,7 +70,7 @@ export default {
             if (confirm('voulez vous vraiment supprimer cette playlist ?')) {
                 this.$inertia.delete(route('playlists.destroy', { playlist: playlistId }), {
                     onSuccess: () => {
-                        
+
                         this.$inertia.reload();
 
                     }

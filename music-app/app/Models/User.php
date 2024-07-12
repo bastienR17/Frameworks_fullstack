@@ -29,6 +29,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'admin'
     ];
 
     /**
@@ -65,7 +66,7 @@ class User extends Authenticatable
         ];
     }
 
-public function playlists() : HasMany
+    public function playlists(): HasMany
     {
         return $this->hasMany(Playlist::class);
     }

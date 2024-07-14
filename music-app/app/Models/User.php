@@ -69,6 +69,8 @@ class User extends Authenticatable
     public function playlists(): HasMany
     {
         return $this->hasMany(Playlist::class);
+
+
     }
 
     public function apikeys(): HasMany

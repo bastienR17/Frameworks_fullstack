@@ -24,10 +24,18 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         Route::get('/{track}/edit', 'edit')->name('edit');
         Route::put('/{track}', 'update')->name('update');
         Route::delete('/{track}', 'destroy')->name('destroy');
+        Route::get('/user/playlists', [PlaylistController::class, 'playlists'])->name('user.playlists')->middleware('auth');
+
     });
 
     Route::get('/api-keys', [ApiKeyController::class, 'index'])->name('API.index');
     Route::post('/api/keys/store', [ApiKeyController::class, 'store']);
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', function () {
+    })->name('dashboard');
+});
+
 });
 
 

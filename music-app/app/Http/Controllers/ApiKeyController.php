@@ -50,4 +50,13 @@ class ApiKeyController extends Controller
         $apiKey->delete();
         return redirect()->route('apikeys.index');
     }
+    public function getUserPlaylists()
+    {
+    $user = Auth::user(); // Get the authenticated user
+    $playlists = $user->playlists; // Assuming there's a 'playlists' relationship defined in the User model
+
+    return response()->json($playlists);
+}
+
+
 }

@@ -1,46 +1,50 @@
-
 <template>
-
-   <music-layout>
-
-   </music-layout>
-
+    <music-layout></music-layout>
     <div>
-
         <button @click="createApiKey">Generate API Key</button>
-
-
+    </div>
+    <div>
+        <h2>Vos clés API</h2>
+        <ul>
+            <li v-for="token in tokens" :key="token.id">{{ token.name }} - {{ token.key }}</li>
+        </ul>
     </div>
 </template>
 
-
 <script>
-import ApiTokenManager from '@/Pages/API/Partials/ApiTokenManager.vue';
-import AppLayout from '@/Layouts/AppLayout.vue';
-import Track from "@/Components/Track/Track.vue";
-import {Link} from "@inertiajs/vue3";
 import MusicLayout from "@/Layouts/MusicLayout.vue";
-
+import axios from 'axios';
 
 export default {
     name: 'index',
     components: {MusicLayout},
-
     data() {
         return {
-            tokens: Array,
-            availablePermissions: Array,
-            defaultPermissions: Array,
+            tokens: [],
+            availablePermissions: [],
+            defaultPermissions: [],
         }
     },
     methods: {
-        createApiKey() {
-            this.$inertia.post('/api/keys/store').then(() => {
-                // Handle success, e.g., show a message or refresh the list of API keys.
-            }).catch(error => {
-                console.error('Error creating API key:', error);
-            });
+        async createApiKey() {
+            try {
+                await this.$inertia.post('/api/keys/store');
+                this.fetchApiKeys();
+            } catch (error) {
+                console.error('pas bon crée', error);
+            }
+        },
+        async fetchApiKeys() {
+            try {
+                const response = await axios.get('/api/keys');
+                this.tokens = response.data;
+            } catch (error) {
+                console.error('marche po', error);
+            }
         }
+    },
+    mounted() {
+        this.fetchApiKeys();
     }
 }
 </script>
